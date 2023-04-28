@@ -1,0 +1,30 @@
+package anasin;
+
+import java_cup.runtime.Symbol;
+
+parser code
+{:
+    private Symbol s;
+    
+    public void syntax_error(Symbol s){
+        this.s = s;
+    }
+
+    public Symbol getS(){
+        return this.s;
+}
+:};
+
+terminal IDENTIFICADOR, OR, AND, NOT, NUMERO, IGUAL, SEPARADOR, NO_DEFINIDO;
+non terminal INICIO;
+
+start with INICIO;
+
+INICIO ::= 
+    IDENTIFICADOR IGUAL NUMERO OR NUMERO SEPARADOR|
+    IDENTIFICADOR IGUAL NUMERO AND NUMERO SEPARADOR|
+    IDENTIFICADOR IGUAL NUMERO NOT SEPARADOR|
+    IDENTIFICADOR IGUAL NUMERO OR NUMERO SEPARADOR INICIO|
+    IDENTIFICADOR IGUAL NUMERO AND NUMERO SEPARADOR INICIO|
+    IDENTIFICADOR IGUAL NUMERO NOT SEPARADOR INICIO
+;
